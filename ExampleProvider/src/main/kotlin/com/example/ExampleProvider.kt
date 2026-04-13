@@ -16,6 +16,7 @@ class ExampleProvider : MainAPI() {
     override suspend fun getMainPage(page: Int, request: MainPageRequest): HomePageResponse {
         return HomePageResponse(emptyList()) 
     }
+    
     override suspend fun search(query: String): List<SearchResponse> {
         return emptyList()
     }
@@ -26,7 +27,7 @@ class ExampleProvider : MainAPI() {
         throw NotImplementedError("Load not fully implemented yet") 
     }
 
-    // 5. The Video Extractor we built!
+    // 5. The Video Extractor
     override suspend fun loadLinks(
         data: String, 
         isCasting: Boolean, 
@@ -43,8 +44,8 @@ class ExampleProvider : MainAPI() {
                 val isM3u8 = videoUrl.contains(".m3u8")
                 callback.invoke(
                     ExtractorLink(
-                        name = this.name,
-                        name = this.name,
+                        source = this.name, // FIXED: Changed to source
+                        name = this.name,   
                         url = videoUrl,
                         referer = mainUrl,
                         quality = Qualities.Unknown.value,
@@ -66,4 +67,3 @@ class ExampleProvider : MainAPI() {
         return true
     }
 }
-// testing actions
